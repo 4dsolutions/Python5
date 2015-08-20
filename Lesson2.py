@@ -7,6 +7,8 @@ complex number in the corresponding plane does not diverge after
 10 iterations of z = z * z + c.  Creates a file of ASCII art best
 viewed fixed width font, small font size.
 
+EXAMPLE OUTPUT:  https://flic.kr/p/xyNXhN
+
 (cl) MIT License 2015 by 4dsolutions.net
 """
 
