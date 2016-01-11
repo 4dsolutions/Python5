@@ -193,6 +193,7 @@ if __name__ == "__main__":
         print("Third Test Succeeds")
     except AssertionError:
         print("Third Test Fails")
+    #========== 
     knuth = {1:5, 2:9, 3:1, 4:8, 5:2, 6:6, 7:4, 8:7, 9:3} # vol 3 pg. 12
     expected = {1:2, 2:3, 3:6, 4:4, 5:0, 6:2, 7:2, 8:1, 9:0} # Ibid
     k = P(the_code=knuth)
@@ -201,12 +202,14 @@ if __name__ == "__main__":
         print("Fourth Test Succeeds")
     except AssertionError:
         print("Fourth Test Fails")
+    #========== 
     p = P(inv_table = expected)
     try: 
         assert p == k
         print("Fifth Test Succeeds")
     except AssertionError:
         print("Fifth Test Fails")
+    #========== 
     p = P().shuffle()
     inv = p.inversion_table()
     print("Perm:", p._code)
