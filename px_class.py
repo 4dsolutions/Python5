@@ -6,6 +6,7 @@ Last updated Jan 10, 2016
 (c) MIT License
 
 Fun for Group Theory + Python
+https://github.com/4dsolutions/Python5/blob/master/px_class.py
 
 """
 
@@ -20,9 +21,13 @@ class P:
     to themselves in any order.
     """   
 
-    def __init__(self, the_code = None, inv_table = None, iterable = ascii_lowercase + ' '):
+    def __init__(self, 
+                 the_code = None,   # direct inject
+                 inv_table = None,  # construct 
+                 iterable = ascii_lowercase + ' '): # default domain
         """
-        start out with Identity
+        start out with Identity, or directly inject the mapping as
+        a dict or use an inversions table to construct the permutation
         """
         if the_code:
             self._code = the_code
