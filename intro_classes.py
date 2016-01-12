@@ -4,11 +4,14 @@ Created on Mon Jan 11 18:28:39 2016
 
 @author: Kirby Urner
 
-Intro to classes:  
+Intro to classes
 with thanks to PDX Code Guild, Instructor:  Tiffany
 """
 
 from random import choice
+
+class Smell:
+    pass
 
 class Mammal:
     
@@ -27,6 +30,10 @@ class Dog(Mammal):
         
     def bark(self, how_many):  # expect int
         return "Bark! " * how_many
+        
+    def sniff(self, the_smell):
+        if the_smell.food_smell:
+            return "Whine!"
         
 class Die:  # as in dice
     """model a die of n sides"""
@@ -47,11 +54,17 @@ class Die:  # as in dice
         return "Die with value {}".format(self.current_value)
 
 if __name__ == "__main__":    
+    
+    # Dog section
     puppy = Dog("Snoopy", "Beagle")
     print(puppy.bark(3))
     puppy.eat("steak!")
     print("Inside puppy:", puppy.stomach)
-          
+    yummy = Smell()
+    yummy.food_smell = True
+    print(puppy.sniff(yummy))
+    
+    # Die section
     it, it1, it2, it3 = Die(), Die(), Die(), Die()
     print((it2.roll(), it3.roll()))
     print(it.roll())
