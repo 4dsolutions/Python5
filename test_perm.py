@@ -45,7 +45,7 @@ class Test_Permutation(unittest.TestCase):
         self.assertEqual(q, r * p, "expected identity fails")
                 
     def test_4(self):
-        self.assertRaises(TypeError, P, 3)
+        self.assertRaises(TypeError, P, iterable = 3)
         
 if __name__ == "__main__":
     unittest.main()
