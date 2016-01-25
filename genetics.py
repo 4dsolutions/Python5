@@ -5,14 +5,14 @@ Created on Wed Dec 16 10:07:57 2015
 @author: kurner, 4dsolutions (.net)
 (copyleft MIT license, 2015)
 
-Example:  Rich Data Structures 
+Example:  Rich Data Structures
 (for learning Python, including sqlite3)
 
-Source:  
+Source:
 
 http://www.soc-bdr.org/rds/authors/unit_tables_conversions_and_genetic_dictionaries/e5202/index_en.html
 
-Any errors you discover in transcribing will be mine, please 
+Any errors you discover in transcribing will be mine, please
 let me know and I'll correct my copy as well.
 
 kirby.urner@gmail.com
@@ -21,7 +21,7 @@ Re:  "Rich Data Structures"
 https://mail.python.org/pipermail/edu-sig/2006-June/006608.html
 
 (a more obvious need now that "big data" examples are in demand,
-for learning map/reduce techniques etc.).  Indeed, we have many 
+for learning map/reduce techniques etc.).  Indeed, we have many
 public raw data sets.  A goal is to have some already in Python,
 as ready-to-go native data types.  As here.  This is not "big
 data", just data.
@@ -29,6 +29,11 @@ data", just data.
 Another experiment:
 https://mail.python.org/pipermail/edu-sig/2012-December/010709.html
 (same caveats about errors)
+
+Adding to PythonAnywhere/thekirbster account for sharing with <guild />
+classes etc.  You may wish to contribute to Github projects from your
+PythonAnywhere account.
+
 
 """
 
@@ -56,14 +61,14 @@ Glu = 'Glutamate',
 Cly = 'Glycine')
 
 combos = [(a, b, c) for a in ('G','U','A','C')
-for b in ('G','U','A','C') 
+for b in ('G','U','A','C')
 for c in ('G','U','A','C')]
- 
+
 
 # Also see:
 # https://flic.kr/p/BeVwN2
 # (American Scientist Vol. 97)
-   
+
 mRNA = \
 {
 ('G', 'G', 'G') : 'Gly',
@@ -135,7 +140,7 @@ mRNA = \
 ('C', 'C', 'C') : 'Pro'}
 
 
-# [Ibid, www.soc-bdr.org] from Table 5. Genetic Code: 
+# [Ibid, www.soc-bdr.org] from Table 5. Genetic Code:
 # mRNA condon -> tRNA anti-codon
 # DNA column dropped (computable, replace mRNA U with T)
 # last column also not included.
@@ -192,7 +197,7 @@ tRNA = \
 ('A','G','C'):(('U','C','G'),),
 ('A','G','A'):(('U','C','U'),),
 ('A','G','G'):(('U','C','C'),('U','C','U')),
-    
+
 ('G','U','U'):(('C','A','I'),('C','A','G'),('C','A','A')),
 ('G','U','C'):(('C','A','I'),('C','A','G')),
 ('G','U','A'):(('C','A','I'),('C','A','U')),
