@@ -15,6 +15,7 @@ bookmarks = (
     ("Python Docs", "https://docs.python.org/3/"),
     ("Spaghetti Code", "http://c2.com/cgi/wiki?SpaghettiCode"),
     ("Structured Programming", "http://c2.com/cgi/wiki?StructuredProgramming"),
+    ("Learn Python Through Public Data Hacking by David Beazley", "https://youtu.be/RrPZza_vZ3w"), 
     ("Map of Languages", "http://archive.oreilly.com/pub/a/oreilly//news/languageposter_0504.html"),
     ("XKCD", "http://xkcd.com"),
     ("Django","https://docs.djangoproject.com/"),
