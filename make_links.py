@@ -3,6 +3,8 @@
 Created on Thu Jan 28 21:27:07 2016
 
 @author: kurner
+
+Compiled with assistance from <guild /> apprentices...
 """
 
 
@@ -13,6 +15,7 @@ bookmarks = (
     ("Anaconda.org", "http://anaconda.org"),
     ("Python.org", "http://python.org"),
     ("Python Docs", "https://docs.python.org/3/"),
+    ("Obama wants $4 Bil to help with CompSci / GNU Math","http://www.msn.com/en-us/news/us/obama-wants-dollar4b-to-help-students-learn-computer-science/ar-BBoTN07?ocid=ansmsnnews11"),
     ("Spaghetti Code", "http://c2.com/cgi/wiki?SpaghettiCode"),
     ("Structured Programming", "http://c2.com/cgi/wiki?StructuredProgramming"),
     ("Learn Python Through Public Data Hacking by David Beazley", "https://youtu.be/RrPZza_vZ3w"), 
