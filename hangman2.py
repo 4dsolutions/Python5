@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.4
 """
 Adapted from hangman.py by Al Sweigart
 https://inventwithpython.com/chapter9.html
@@ -5,8 +6,11 @@ https://inventwithpython.com/chapter9.html
 * add case sensitivity
 * allow spaces
 * use a class
+* get terms from sqlite db
 """
 
+import sqlite3 as sql
+import os
 import random
 
 HANGMANPICS = ['''
@@ -124,37 +128,37 @@ HANGMANPICS = ['''
 =========''']
 
 class Hangman:
-    
+
     def __init__(self, words):
         self.words = words
         self.secretWord = random.choice(self.words)
         self.missedLetters = ''
         self.correctLetters = ''
         self.alreadyGuessed = ''
-   
+
     def __str__(self):  # print(hm) triggers this method
         display = ("\n"
         "H A N G M A N \n"
-        "{picture}\n" 
+        "{picture}\n"
         "Guessed: {blanks}\n"
         " Missed: {missed}\n")
-        
+
         content = {}
-        content['picture'] = HANGMANPICS[len(self.missedLetters)] 
+        content['picture'] = HANGMANPICS[len(self.missedLetters)]
         content['missed']  = ""
         for letter in self.missedLetters:
             content['missed'] += letter + " "
-    
+
         blanks = list('_' * len(self.secretWord))
         for i in range(len(self.secretWord)):  # replace blanks
             if self.secretWord[i] in self.correctLetters:
                 blanks[i] = self.secretWord[i]
         blanks = "".join(blanks)
-        
+
         content["blanks"] = ""
-        for letter in blanks:  # masked secret word 
+        for letter in blanks:  # masked secret word
             content['blanks'] += letter + " "  # spaces between each letter
-        
+
         return display.format(**content) # keyword arguments to format()
 
     def getGuess(self):
@@ -169,7 +173,7 @@ class Hangman:
                 print('Please enter a single letter or space.')
             elif guess in self.alreadyGuessed:
                 print('You have already guessed that letter. Choose again.')
-            elif not guess.isalpha() and not guess == " ":
+            elif not guess.isalpha() and not guess in " ()/": # OK symbols
                 print('Please enter a LETTER or SPACE.')
             else:
                 break
@@ -178,19 +182,30 @@ class Hangman:
 
 def playAgain():
     """
-    This function returns True if the player wants to 
+    This function returns True if the player wants to
     play again, otherwise it returns False.
     """
     return input('Do you want to play again? (yes or no) ').lower().startswith('y')
 
-words = 'Big Data : HTML : CSS : Anaconda : Python : JavaScript'.split(" : ")
+# get key terms from SQLite database as what to play hangman with.
+
+dbpath = os.path.join(os.path.split(__file__)[0], "glossary.db") # db in same dir
+db = sql.connect(dbpath)    # connect
+curs = db.cursor()          # grab a cursor
+curs.execute("SELECT * FROM Glossary") # SQL to retrieve all defined terms
+
+words = [ ]
+for word in curs.fetchall():
+    words.append(word[0])
+
+db.close()  # done with the database
 
 hm = Hangman(words)
 
 gameIsDone = False
 
 while not gameIsDone:
-    
+
     print(hm)
     # Let the player type in a letter.
     guess = hm.getGuess()
@@ -217,10 +232,10 @@ while not gameIsDone:
             gameIsDone = True
 
     else:
-        
+
         hm.missedLetters += guess
         hm.alreadyGuessed += guess
-        
+
         # Check if player has guessed too many times and lost
         if len(hm.missedLetters) == len(HANGMANPICS) - 1:
             print(hm)
