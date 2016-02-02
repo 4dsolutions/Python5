@@ -21,6 +21,7 @@ tuples = (
     ("Anaconda.org", "http://anaconda.org"),
     ("Python.org", "http://python.org"),
     ("Python Docs", "https://docs.python.org/3/"),
+    ("'New Math' by Tom Lehrer (animated)","https://youtu.be/UIKGV2cTgqA"),
     ("Spaghetti Code", "http://c2.com/cgi/wiki?SpaghettiCode"),
     ("Structured Programming", "http://c2.com/cgi/wiki?StructuredProgramming"),
     ("Map of Languages", "http://archive.oreilly.com/pub/a/oreilly//news/languageposter_0504.html"),
