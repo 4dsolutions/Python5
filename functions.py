@@ -9,9 +9,9 @@ RECAP:
 
 Students comfortable with the content so far, with or
 without laptops, were permitted to stay with my 
-curriculum, however those wishing more of a clinic 
-and recap of the basics were admitted to a separate
-more remedial section.
+accelerated curriculum, however those wishing more 
+of a clinic and recap of the basics were admitted 
+to a separate more remedial section.
 
 This edition of Intro to Programming @ <guild />
 did not include the usual Labs and no homework was 
@@ -37,8 +37,8 @@ pattern.
 
 Finally, we took a deeper look at functions, including:
 
-* functions passed to other function
-* function the return functions
+* functions passed to other functions
+* function that return functions
 * preview of how def F(*args, **kwargs) allows any
   number of positional and keyword (named) arguments 
   to be passed to a function F.
