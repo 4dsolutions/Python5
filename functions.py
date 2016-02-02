@@ -58,7 +58,7 @@ print(eats("Spaghetti", "Oysters", "Chili", "Crackers", "Rice"))
 def pretty(*names):
     print(names)        # show me the tuple
     for name in names:  # looping over the tuple
-        print("Name: {:^20}".format(name))
+        print("Name: {:>20}".format(name))
 
 print("Some US presidential candidates:")
 print(pretty("Bernie Sanders", "Donald Trump", "Hillary Clinton", 
@@ -75,10 +75,9 @@ def example(*args, **kwargs): # gather keyword args in a dict
 print("Adding a dict-parameter")
 
 # positional + keyword (named) arguments
-print(example(1,2,3,4, on_vacation=True, at_work=False ))
+example( 1,2,3,4, on_vacation=True, at_work=False )
 
 #=== functions that return and/or eat functions...
-        
 def addLetter(letters): # <-- pass in a string
     """
     A function factory that builds and returns 
@@ -92,9 +91,9 @@ def addLetter(letters): # <-- pass in a string
     
 add_s  = addLetter("s")
 add_ed = addLetter("ed")
-print("addS('cat')", addS('cat'))
-print("addD('show')", addD('show'))
 
+print("add_s('cat')", add_s('cat'))
+print("add_ed('show')", add_ed('show'))
 
 def compose(g, f):
     """Take two functions as inputs and return a
@@ -141,7 +140,11 @@ def totient(N):
     # list comprehension!
     return len([x for x in range(1,N) if gcd(x,N)==1])
 
+print("Totient of  100:", totient(100))
+print("Totient of 1000:", totient(1000))
+
 # note:  the int( ) type *is* "base aware"
+
 print("Convert from Base  2:", int("1001010",2))
 print("Convert from Base 16:", int("AFF2", 16))
 
