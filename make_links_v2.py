@@ -61,7 +61,7 @@ bookmarks = [Bmk(*tup) for tup in tuples] # list comprehension!
     
 for bmk in bookmarks:
     # Bookmark(place='Anaconda.org', url='http://anaconda.org')
-    print(bmk)   # notice format of output
+    print(bmk)   # notice format of output: __repr__
     print("-")
 
 # skeleton of any web page
@@ -94,5 +94,5 @@ for bmk in sorted(bookmarks):
 # using sqlite3.  Two column table:  e.g. place, url
 
 out = open("links.html", "w")
-print(page.format(html.format(bookmarks = the_body)), file=out)
+print(page.format(html.format(bookmarks = the_links)), file=out)
 out.close()

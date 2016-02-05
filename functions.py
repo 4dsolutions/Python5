@@ -2,94 +2,159 @@
 """
 Created on Mon Feb  1 20:00:44 2016
 
-SESSION 04:  PDX CODE GUILD
-
-RECAP:
-
-Students comfortable with the content so far, with or
-without laptops, were permitted to stay with my 
-curriculum, however those wishing more of a clinic 
-and recap of the basics were admitted to a separate
-more remedial section.
-
-This edition of Intro to Programming @ <guild />
-did not include the usual Labs and no homework was 
-expected, so a Course + Clinic design became 
-necessary.  Some students already had advanced 
-knowledge of programming, just not of Python in
-particular.
-
-Those who stayed with the non-clinic version learned
-about namedtuples as a bridge from the tuple to class
-construct i.e. tuples are allowed to have attributes
-by means of this collection.namedtuple subclass.
-
-We also learned about how str.format will take names
-corresponding to named arguments i.e.:
-
-"He lives in {city}, {state}".format(city="Portland,
-state="OR")
-
-We looked at madlibs_v2.py as an example of this 
-pattern.
-
-Finally, we took a deeper look at functions, including:
-* functions passed to other function
-* function the return functions
-* preview of how def F(*args, **kwargs) allows any
-number of positional and keyword (named) arguments 
-to be passed to a function F.
+Functions in Python
 
 @author: Kirby Urner
 """
 
-def eat(food):
-    print("I love", food)
+def section(title):
+    """center in a string 60 wide padded with ="""
+    return "\n{:=^60}\n.".format(title)
 
-def eats(*foods):
-    print(foods)
+print(section("<<<< local, nonlocal, global variables >>>>"))
+
+# globals
+STAR = "Sirius"   # Polaris
+Favorites = [ ]
+X = 100
+
+def setStar(name):
+    global STAR
+    STAR = name
+    Favorites.append(name)
+
+print("STAR: ", STAR)
+setStar("Polaris")
+print("STAR: ", STAR)
+
+def outerF():
+    X = 10
+    print("Inside outerF:", X)
+    def innerF():
+        nonlocal X  # global or nonlocal?
+        print("Inside InnerF, X:", X)    # expect 10
+        X = "Infinity"
+        print("Inside InnerF, X:", X)
+    innerF()
+    return X
+
+print("Returned from outerF: ", outerF())
+print("            Global X: ", X)
+
+print(section("<<<< Scattering and Gathering with * and ** >>>>"))
+
+def eats(*foods): # gather positional args in a tuple 
+    print("foods: ", foods)  # foods is a tuple now
+
+print("Tuple of positional arguments to eats():")
+
+# open-ended number of positional arguments passed in...
+eats("Spaghetti", "Oysters", "Chili", "Crackers", "Rice")
     
 def pretty(*names):
-    print(names)
-    for name in names:
-        print("Name: {:^20}".format(name))
-        
-def example(*args, **kwargs):
-    print(args)
-    print(kwargs)
-    for arg in args:
-        print(arg)
-    for key, value in kwargs.items():
-        print("Arg name:",key,"Value: ", value)
-        
-def addLetter(letter):
-    def L(s):
-        return s + letter
-    return L
+    for name in names:  # looping over the tuple
+        print("Name: {:>20}".format(name))
 
-def L(s):
-    return s + "D"
+print("Some US presidential candidates:")
+print(pretty("Bernie Sanders", "Donald Trump", "Hillary Clinton", 
+             "Ted Cruz"))
+       
+def example(*args, **kwargs): # gather keyword args in a dict
+    """
+    (* ) convert positionals --> tuple
+    (**) convert keyword args --> dict
+    """
+    for arg in args:  # loop over the tuple
+        print(arg, sep=", ", end="")
+    print()
+    for key, value in kwargs.items(): # ...now the dict
+        print("Arg name:",key,"Value: ", value)
+
+# positional + keyword (named) arguments
+example( 1,2,3,4, on_vacation=True, at_work=False )
+
+# same thing using "exploders" * and **
+example( *(1,2,3,4), **dict(on_vacation=False, at_work=True) )
+
+print(section("<<<< GNU Math section >>>>"))
+
+# note:  the int( ) type *is* "base aware"
+print("======= int as multi-base ========")
+print("Convert from Base  2:", int("1001010",2))
+print("Convert from Base 16:", int("AFF2", 16))
+
+print("======= Top-Level Functions ========")
+#=== functions that return and/or eat functions...
+def addLetter(letters): # <-- pass in a string
+    """
+    A function factory that builds and returns 
+    function objects.  L is a function that will
+    add whatever letters are passed in to be the
+    ending letters.
+    """
+    def L(s):
+        return s + letters # <--- concatenation!
+    return L
+    
+add_s  = addLetter("s")
+add_ed = addLetter("ed")
+
+print("add_s('cat')", add_s('cat'))
+print("add_ed('show')", add_ed('show'))
 
 def compose(g, f):
+    """Take two functions as inputs and return a
+    function that's their composition"""
     def newfunc(x):
         return g(f(x))
     return newfunc
 
+# input function
 def G(n):
     return n + 2
 
+# input function
 def F(n):
     return n * 2
 
+# compare:
+H = compose(G, F) # build a 3rd function from 1 & 2
+print("G(F(x)):", H(100))  # G(F(x))
+
+# ... now with 
+H = compose(F, G)
+print("F(G(x)):", H(100))  # F(G(x))
+
+
+print("======= Totient / Totatives ========")
+# ====== GNU Math section ========
+#
+# (a pun on New Math ala Tom Lehrer Youtube
+# see: make_links_v2.py)
+
 def gcd(a, b):
-    while b:
+    """
+    Euclid's Method for finding the GCD
+    """
+    while b:  # <--- while loop!
         a, b = b, a%b
     return a
+
+def totatives(N):
+    # list comprehension!
+    return [x for x in range(1,N) if gcd(x,N)==1]
     
 def totient(N):
-    return len([x for x in range(1,N) if gcd(x,N)==1])
-    
-    
+    """
+    Returns the number of numbers between (1, N) that 
+    have no factors in common with N:  called the 'totient
+    of N -- called the totient of N.
+    """
+    return len(totatives(N))
+
+print("Totient of  100:", totient(100))
+print("Totient of 1000:", totient(1000))
+
 
 
 
