@@ -54,6 +54,7 @@ td.square {{overflow:hidden; width:40px; height:40px;}}
 <script type="text/javascript">
 
 this.prevCellId = nil;
+this.prevLegalMoves = nil;
  
 
 // runs when the body loads.Server's sig == tip-off running in server mode
@@ -67,16 +68,29 @@ function detectServer() {{
    }}
 }}
 
-// turns a clicked-on cell red while returning the last clicked cell
-// to its original color based on a row-column computation (same used
-// to get original coloring)
-
 // If in server mode, talk with server to find out what if any chess
-// piece is in the current location.  XMLHttpRequest object used for this.
+// piece is in the current location or if selected cell is already green.  
+// XMLHttpRequest object used for this.
+
+// if cell not already green, turns a clicked-on cell red while 
+// returning the last clicked cell to its original color based 
+// on a row-column computation (same used to get original coloring)
+// previous greens returned to board coloring.  Says what piece was
+// clicked on if any due to a GET ?cell request.
+
+// turns on legal next positions if piece select and not already moving
+
+// if clicking on green square, then moving, so move piece with PUT ?move 
+// requiest, and then turn off all red or green coloring, showing no 
+// piece is selected, with board updated
+
 
 function showCell(theCell) {{
     oldcolor = theCell.bgColor;
-    theCell.bgColor = "E80000";
+    moving = false;
+    if (oldcolor == "00E800") {{
+        moving = true;
+    }}
     found = Boolean(this.prevCellId);
     // alert("prev id: " + this.prevCellId + " " + String(found));
     if (found) {{
@@ -84,8 +98,9 @@ function showCell(theCell) {{
         // extract row,column of old cell and set bgcolor to dark or light
         row    = Number(prevCellId.charAt(1));
         column = Number(prevCellId.charAt(3));
-        oldCell.bgColor = (row + column)%2==0 ? ('#ffffff') : ('#a9a9a9');
-    }}   
+        oldCell.bgColor = (row + column)%2==0 ? ('#ffffff') : ('#a9a9a9');   
+    }}  
+    theCell.bgColor = "E80000";
     this.prevCellId = theCell.id;
     // alert("old cell_id " + this.prevCellId);
     if (this.live_server) {{
@@ -94,18 +109,71 @@ function showCell(theCell) {{
        xhttp.onreadystatechange = function() {{
            // alert("readyState: " + xhttp.readyState);
            if (xhttp.readyState == 4 && xhttp.status == 200) {{
-               piece_name = xhttp.responseText;
-               // alert("Callback: " + piece_name);
-               document.getElementById("from_server").innerHTML = piece_name;
+               data_dict = JSON.parse(xhttp.responseText);
+               display_text = data_dict['response_text'];
+               legal_moves  = data_dict['legal_moves'];
+               piece_symbol = data_dict['unicode'];
+               piece_pos = data_dict['position'];
+               got_piece = data_dict['has_piece'];
+               document.getElementById("from_server").innerHTML = display_text;
+               if ((!moving)  && got_piece) {{
+                  for (r = 0; r <= 7; ++r) {{
+                       for (c = 0; c <= 7; ++c ) {{
+                           the_id = "r" + String(r) + "c" + String(c);
+                           theCell = document.getElementById(the_id);
+                           if (theCell.bgColor == "00E800") {{
+                               theCell.bgColor = (r + c)%2==0 ? ('#ffffff') : ('#a9a9a9'); 
+                           }}
+                       }}
+                   }} 
+                   for (cell_id of legal_moves) {{
+                       the_cell = document.getElementById(cell_id);
+                       the_cell.bgColor = "00E800";
+                   }}
+               }} 
+               if ((!moving) && !got_piece){{
+                   for (r = 0; r <= 7; ++r) {{
+                       for (c = 0; c <= 7; ++c ) {{
+                           the_id = "r" + String(r) + "c" + String(c);
+                           theCell = document.getElementById(the_id);
+                           if (theCell.bgColor == "00E800") {{
+                               theCell.bgColor = (r + c)%2==0 ? ('#ffffff') : ('#a9a9a9'); 
+                           }}
+                       }}
+                   }}               
+               }}
+               if (moving) {{
+                   for (r = 0; r <= 7; ++r) {{
+                       for (c = 0; c <= 7; ++c ) {{
+                           the_id = "r" + String(r) + "c" + String(c);
+                           theCell = document.getElementById(the_id);
+                           theCell.bgColor = (r + c)%2==0 ? ('#ffffff') : ('#a9a9a9'); 
+                       }}     
+                   }}
+                   the_id = "r" + String(piece_pos[0]) + "c" + String(piece_pos[1]);
+                   newCell = document.getElementById(the_id);
+                   newCell.innerHTML = piece_symbol;
+                   oldCell.innerHTML = '';  
+                   this.prevCellId = nil;
+               }}
            }}
        }}
-       row = theCell.id.charAt(1)
-       column = theCell.id.charAt(3)
-       getvals = "/cell?r=" + row + "&c=" + column
-       // alert("Send happens: " + getvals);
-       xhttp.open("GET", getvals, true);
-       xhttp.send();
-
+       
+       if (moving) {{  
+           row = theCell.id.charAt(1);
+           column = theCell.id.charAt(3);
+           putvals = "/move?r=" + row + "&c=" + column;
+           // alert("PUT happens: " + putvals);
+           xhttp.open("PUT", putvals, true);
+           xhttp.send();
+       }} else {{
+           row = theCell.id.charAt(1);
+           column = theCell.id.charAt(3);
+           getvals = "/cell?r=" + row + "&c=" + column;
+           // alert("GET happens: " + getvals);
+           xhttp.open("GET", getvals, true);
+           xhttp.send();
+       }}
     }}
 }}
 
@@ -360,6 +428,21 @@ class Game:
         "Lost: {}\n".format(self.player2.lost) + \
         "Captured: {}\n".format(self.player2.captured))
         return output
-        
+
+    def legal(self, the_piece):
+        moves = []
+        if the_piece.type == "Knight":
+            for x,y in ((1,2),(-1,2),(1,-2),(-1,-2),
+                        (2,1),(2,-1),(-2,1),(-2,-1)):
+                candidate = (the_piece.position[0] + x, 
+                            the_piece.position[1] + y)
+                if (0 <= candidate[0] <= 7) and (0 <= candidate[1] <= 7):
+                    p = self.board._check_for_piece(*candidate)                  
+                    if (not p) or (p.color != the_piece.color):
+                        moves.append("r{}c{}".format(*candidate))
+            
+        return moves
+            
+                
 if __name__ == "__main__":
     the_game = Game()

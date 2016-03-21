@@ -21,9 +21,9 @@ this version.
 
 """
 
-import flask as f
 from flask import Flask, current_app, redirect, request
 from chessgame import Game
+import json
 
 app = Flask(__name__)
 
@@ -37,17 +37,50 @@ def index():
 
 @app.route("/cell", methods=['GET'])
 def get_cell():
+    global game
     if request.method == "GET":
         r = int(request.args.get('r'))
         c = int(request.args.get('c'))
         the_piece = game.board._check_for_piece(r, c)
-        if the_piece == False:
+        if not the_piece:
             the_color = "no piece"
             the_type = "in that location."
+            game.selected = None
+            data_dict = dict(response_text="{} {}".format(the_color, the_type), 
+                         legal_moves = ['r3c2','r3c3'], has_piece=False,
+                         unicode = "")
         else:
             the_color = the_piece.color
             the_type = the_piece.type
-    return "{} {}".format(the_color, the_type)
+            game.selected = the_piece
+            print("Selected:", game.selected)
+            the_symbol = the_piece.unicode
+            the_pos = the_piece.position
+            data_dict = dict(response_text="{} {}".format(the_color, the_type), 
+                         legal_moves = game.legal(the_piece), unicode=the_symbol,
+                         has_piece=True, position = the_pos)
+    return json.dumps(data_dict)
+
+@app.route("/move", methods=['PUT'])
+def move_piece():
+    global game
+    r = int(request.args.get('r'))
+    c = int(request.args.get('c'))
+    new_position = [r,c]
+    the_piece = game.selected
+    old_position = the_piece.position.copy()    
+    game.board.grid[old_position[0]][old_position[1]] = None  
+    the_color = the_piece.color
+    the_type = the_piece.type
+    the_symbol = the_piece.unicode
+    the_piece.position[0] = r
+    the_piece.position[1] = c
+    game.board.grid[r][c] = the_piece 
+    data_dict = dict(response_text="Moved: {} {} from {} to {}".format(
+                     the_color, the_type, old_position, new_position), 
+                     legal_moves = [], has_piece=False, unicode=the_symbol,
+                     position = new_position)
+    return json.dumps(data_dict)
     
 @app.route("/deepblue")
 def some_handler():
