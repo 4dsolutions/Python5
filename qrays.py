@@ -178,14 +178,14 @@ class Qvector:
     def __repr__(self):
         return repr(self.coords)
 
-    def norm(self, plist):
+    def norm(self, arg):
         """Normalize such that 4-tuple all non-negative members."""
-        return IVM(*map(sub, plist, [min(plist)] * 4)) 
+        return IVM(*tuple(map(sub, arg, [min(arg)] * 4))) 
     
     def norm0(self):
         """Normalize such that sum of 4-tuple members = 0"""
         q = self.coords
-        return IVM(*map(sub, q, [sum(q)/4.0] * 4))  
+        return IVM(*tuple(map(sub, q, [sum(q)/4.0] * 4))) 
 
     @property
     def a(self):
@@ -206,7 +206,7 @@ class Qvector:
     def __mul__(self, scalar):
         """Return vector (self) * scalar."""
         newcoords = [scalar * dim for dim in self.coords]
-        return Vector(newcoords)
+        return Qvector(newcoords)
 
     __rmul__ = __mul__ # allow scalar * vector
 
@@ -216,7 +216,7 @@ class Qvector:
     
     def __add__(self,v1):
         """Add a vector to this vector, return a vector""" 
-        newcoords = map(add, v1.coords, self.coords)
+        newcoords = tuple(map(add, v1.coords, self.coords))
         return Qvector(newcoords)
         
     def __sub__(self,v1):
@@ -225,7 +225,7 @@ class Qvector:
     
     def __neg__(self):      
         """Return a vector, the negative of this one."""
-        return self.Qvector(map(neg, self.coords))
+        return Qvector(tuple(map(neg, self.coords)))
                   
     def dot(self,v1):
         """Return the dot product of self with another vector.
@@ -268,10 +268,9 @@ class Qvector:
 class Svector(Vector):
     """Subclass of Vector that takes spherical coordinate args."""
     
-    def __init__(self,arg,isxyz=None):
+    def __init__(self,arg):
         # if returning from Vector calc method, spherical is true
-        if isxyz:
-            arg = Vector(arg).spherical()
+        arg = Vector(arg).spherical()
             
         # initialize a vector at an (r,phi,theta) tuple (= arg)
         r     = arg[0]
