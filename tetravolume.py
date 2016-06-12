@@ -127,7 +127,7 @@ class Test_Tetrahedron(unittest.TestCase):
         c = Vector((0.0, 0.0, 0.5))
         R_cube = 6 * Tetrahedron(a.length(), b.length(), c.length(), 
                 (a-b).length(), (b-c).length(), (c-a).length()).xyz_volume()
-        self.assertAlmostEqual(D_tet.xyz_volume(), R_cube * sqrt(8/9), 4)
+        self.assertAlmostEqual(D_tet.xyz_volume() * sqrt(9/8), R_cube, 4)
 
         
 if __name__ == "__main__":
