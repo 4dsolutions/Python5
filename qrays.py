@@ -74,7 +74,7 @@ class Vector:
     
     def __neg__(self):      
         """Return a vector, the negative of this one."""
-        return self.Vector(map(neg, self.xyz))
+        return Vector(tuple(map(neg, self.xyz)))
 
     def unit(self):
         return self.__mul__(1.0/self.length())
@@ -88,7 +88,7 @@ class Vector:
         newcoords = (self.y * v1.z - self.z * v1.y, 
                      self.z * v1.x - self.x * v1.z,
                      self.x * v1.y - self.y * v1.x )
-        return self.Vector(newcoords)
+        return Vector(newcoords)
     
     def length(self):
         """Return this vector's length"""

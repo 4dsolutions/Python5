@@ -4,7 +4,7 @@ http://www.grunch.net/synergetics/quadvols.html
 Kirby Urner (c) MIT License
 """
 from math import sqrt, hypot
-from qrays import Qvector
+from qrays import Qvector, Vector
 
 class Tetrahedron:
     """
@@ -95,6 +95,14 @@ class Test_Tetrahedron(unittest.TestCase):
         tet = Tetrahedron(qA.length(), qB.length(), qC.length(), 
                 (qA-qB).length(), (qA-qC).length(), (qB-qC).length())
         self.assertAlmostEqual(tet.ivm_volume(), 0.25) 
+
+    def test_octant(self):
+        x = Vector((1/2,0,0))
+        y = Vector((0,1/2,0))
+        z = Vector((0,0,1/2))
+        tet = Tetrahedron(x.length(), y.length(), z.length(), 
+                (x-y).length(), (x-z).length(), (y-z).length())
+        self.assertAlmostEqual(tet.xyz_volume(), 1/6, 5) # good to 5 places
         
 if __name__ == "__main__":
     unittest.main()
