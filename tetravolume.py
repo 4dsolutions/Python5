@@ -77,7 +77,7 @@ class Test_Tetrahedron(unittest.TestCase):
 
     def test_unit_volume2(self):
         tet = Tetrahedron(R, R, R, R, R, R)
-        self.assertAlmostEqual(tet.xyz_volume(), 0.11785, "Volume not 1")
+        self.assertAlmostEqual(tet.xyz_volume(), 0.11785)
 
     def test_phi_edge_tetra(self):
         tet = Tetrahedron(D, D, D, D, D, PHI)
@@ -86,7 +86,7 @@ class Test_Tetrahedron(unittest.TestCase):
     def test_right_tetra(self):
         e = hypot(sqrt(3)/2, sqrt(3)/2)  # right tetrahedron
         tet = Tetrahedron(D, D, D, D, D, e)
-        self.assertAlmostEqual(tet.xyz_volume(), 1.0, "Volume not 1")
+        self.assertAlmostEqual(tet.xyz_volume(), 1.0)
 
     def test_quadrant(self):
         qA = Qvector((1,0,0,0))
@@ -103,6 +103,32 @@ class Test_Tetrahedron(unittest.TestCase):
         tet = Tetrahedron(x.length(), y.length(), z.length(), 
                 (x-y).length(), (x-z).length(), (y-z).length())
         self.assertAlmostEqual(tet.xyz_volume(), 1/6, 5) # good to 5 places
+
+    def test_octahedron(self):
+        a = Vector((1,0,0))
+        b = Vector((0,1,0))
+        c = Vector((0.5,0.5,sqrt(2)/2))
+        tet = Tetrahedron(a.length(), b.length(), c.length(), 
+                (a-b).length(), (b-c).length(), (c-a).length())
+        self.assertAlmostEqual(tet.ivm_volume(), 1.0, 5) # good to 5 places  
+
+    def test_xyz_cube(self):
+        a = Vector((0.5, 0.0, 0.0))
+        b = Vector((0.0, 0.5, 0.0))
+        c = Vector((0.0, 0.0, 0.5))
+        tet = Tetrahedron(a.length(), b.length(), c.length(), 
+                (a-b).length(), (b-c).length(), (c-a).length())
+        self.assertAlmostEqual(6*tet.xyz_volume(), 1.0, 4) # good to 4 places  
+
+    def test_s3(self):
+        D_tet = Tetrahedron(D, D, D, D, D, D)
+        a = Vector((0.5, 0.0, 0.0))
+        b = Vector((0.0, 0.5, 0.0))
+        c = Vector((0.0, 0.0, 0.5))
+        R_cube = 6 * Tetrahedron(a.length(), b.length(), c.length(), 
+                (a-b).length(), (b-c).length(), (c-a).length()).xyz_volume()
+        self.assertAlmostEqual(D_tet.xyz_volume(), R_cube * sqrt(8/9), 4)
+
         
 if __name__ == "__main__":
     unittest.main()
