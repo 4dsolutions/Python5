@@ -1,0 +1,178 @@
+
+* .NET:  a virtual machine and the target runtime platform for C# as well as IronPython.  See Mono.
+
+* Agile:  a set of practices and work flows designed to promote productivity and agility within a company or other enterprise.
+
+* AJAX:  asynchronous JavaScript and XML.  Loosely describes the technique of updating the DOM without reloading the whole web page.
+
+* Apache:  a free / open source web server, highly configurable.  The "A" in "LAMP stack".
+
+* Apache Foundation:  an umbrella organization under which many open source projects get developed and shared.
+
+* API:  Application Program Interface.  Specifies how to operate with the provided tools or assets.  Includes documentation and, in Python, docstrings.
+
+* ASCII:  American Standard Code for Information Interchange.  A subset of Unicode.
+
+* bash:  Borne Again Shell.  The most commonly used POSIX shell.
+
+* bus numbers:  Software with "low bus numbers" means only a handful of people would need to be hit by a bus before no one alive really understood it or could maintain it.  Example usage:  "the Django ORM could use higher bus numbers".  Background: as companies gained in experience they learned the dangers of code only understood by one programmer, who might then move on.  Extreme Programming and Agile helped advance a team-based approach under version control to coding that takes turnover for granted.
+
+* C:  the core language of operating systems development and device drivers, and much else beside.  A "close to the metal" language that requires knowledge of hardware.  CPython is written in the C language.
+
+* C#:  a Java-like language targeting the .NET virtual machine, used to implement IronPython
+
+* C++:  C turned into an Object Oriented language.  May be used to extend Python using boost or swig.
+
+* cloud service:  a service remotely hosted by a data center, accessed through a client.  Also known as "web services" such as in AWS (Amazon Web Services).
+
+* client-side language:  a computer language used on the client in a client-server architecture.
+
+* client-server architecture:  the premise of most web sites is they host information and services designed for sharing through client computers connected over the Internet via TCP/IP, often by means of the HTTP protocol with a web browser for the front end.
+
+* Clojure:  a LISP-family language; targets the JVM.
+
+* console interface:  a lexical terminal-based way of interacting with software, often displayed as a window within a GUI though also usable in lieu of a graphical interface.  Example:  the bash shell.
+
+* cookies:  dabs of information, often encrypted, a server is allowed to write to a client as a way of keeping track of the session and/or storing client history and preferences.  A web browser usually provides GUI tools for inspecting cookies.
+
+* CouchDB:  like MongoDB, a noSQL database.
+
+* CPython:  Python implemented in the C language.  The de facto standard to which other implementations compare themselves.
+
+* Cython:  a computer language that includes Python semantics while allowing more low-level C-language constructs.
+
+* Django:  one of the most popular web frameworks written in and extended through Python.  Other frameworks:  web2py, Flask, Tornado, Twisted.
+
+* Docker:  a container-based infrastructure for defining and sharing cloud service components and whole systems.
+
+* docstrings:  strategically placed text strings in a Python script, designed to work with help( ) to describe the API of a module.
+
+* Document Object Model (DOM):  a tree-like structure representing a document in terms of sections, such as divisions (<div></div>) and paragraphs (<p></p>).  JavaScript tools such as JQuery enable a browser to dynamically manipulate the DOM.
+
+* event driven programming:  a programming style that keeps the code responsive to various events such as mouse clicks, keypresses, requests for i/o.  Typically used for GUI programming.
+
+* event loop:  used in event driven programming to drive the application forward in time, a polling loop that listens for and dispatch events to handlers.
+
+* Extreme Programming (XP):  one of several workflow designs developed for the Agile workplace.  eXtreme Programming (XP) includes such practices as "pair programming" which in turn comes in several flavors (see "bus numbers").
+
+* filesystem:  a tree-like structure used for storing files.  Filesystems depend on software such as ext2, ext3 and HFS.
+
+* Flask:  a micro-framework, highly extensible, for WSGI applications, written in Python.
+
+* Food Cart Pod:  many towns have Food Courts populated by food carts, but in Portland in particular it has become popular to call these "pods".  Check Willamette Week for example usage.
+
+* FTP:  file transfer protocol.  FTP clients connect to an FTP host to upload / download files.
+
+* garbage collection:  an automatic service provided by a virtual machine for recycling no-longer-used memory.
+
+* Git:  a version control system, free and open source.
+
+* graph:  also called a network and may be seen as a superclass of tree.  "Who knows whom" in a social network may be represented as a graph.  Neo4j is a noSQL graph database.
+
+* GUI:  graphical user interface, use on contrast with "console interface".
+
+* HTML / CSS:  Hypertext Markup Language (HTML) and Cascading Style Sheets (CSS) are used together to control the rendering of a web page within a browser.  HTML tends to center around the Document Object Model (DOM), with CSS applying a cosmetic layer.
+
+* HTTP:  hypertext transfer protocol.  Invented by Tim Berners-Lee at CERN to satisfy the need for hypertext among physicists initially.  HTTP requests and responses are the "suitcases" which clients and servers pass back and forth, full of HTML / CSS, JavaScript and cookies.
+
+* HTTPS:  secure version of HTTP, uses RSA and other encryption technologies internally.
+
+* IDE:  brings text editor, REPL, navigation (filesystem) together. Many good programmers do not use an IDE.
+
+* IDLE:  another example IDE, the one that ships with standard Python distro as part of the standard library, the GUI widgets actually supplied by Tk (toolkit) written in tcl ("tickle") a whole other language (the one year of DARPA funding Guido obtained for his Computer Programming for Everyone proposal went into building the tkinter module on which IDLE is built).  IDLE is also a pun on Eric Idle, one of the Monty Python troupe.
+
+* IronPython:  a version of Python written in C# and targeting the .NET and/or Mono platforms.
+
+* Java:  not to be confused with JavaScript, a full-featured object oriented language.  Often used on the server.
+
+* JavaScript:  originally designed as an in-browser, client-side language, JavaScript (JS, ECMAScript) has now become a server-side language as well.
+
+* JQuery: a JavaScript library designed to facilitate scripting across browsers, making DOM-manipulation and AJAX simpler to develop and maintain.
+
+* JuJu:  a system for rolling out integrated systems in the cloud.  See Docker.
+
+* JVM:  Java Virtual Machine, the runtime platform for Java but also other languages such as Scala and Clojure.
+
+* Jython:  a version of Python implemented in the Java language, which runs on the JVM.  Like .NET, the JVM is a "virtual machine".
+
+* LAMP:  Linux Apache MySQL P-language.  An abbreviated view of a standard e-Commerce or general purpose website using Open Source products.  "P-languages" refers to PHP, Perl, Python, all popular as server-side languages.  Other popular server-side languages include Ruby, JavaScript (e.g. in CouchDB and Node.js), Clojure, Scala... there is no way the letter "P" even begins to cover them all.
+
+* LIFO:  last in first out.  Typical of a queue, e.g. a line at the bank waiting for the next available bank teller.
+
+* Linux:  a powerful Unix-like free open source operating system, available in many distros (e.g. Ubuntu) and used on a majority of servers.
+
+* Mono: the open source not-Microsoft version of the .NET standard.  Pronounced "moe-no" not "mah-no" -- means "monkey" in Spanish.
+
+* MongoDB:  like CouchDB, a noSQL database.
+
+* MySQL:  A popular open source SQL database, now owned by Oracle.  "My" is the name of the daughter of the inventor, who went on to write MariaDB.
+
+* NNTP:  Network News Transfer Protocol.
+
+* Node.js:  a web framework written in and extended through JavaScript
+
+* noSQL:  "not only" SQL.  Databases come in many flavors, with some designed more for speed in memory i.e. quick recall of documents based on a key only.  SQL may not be directly relevant to such a database.  A SQL + noSQL hybrid architecture is typically behind websites today, including Facebook, Netflix etc.
+
+* ORM: object-relational mapper, a software tool designed to convert tabular data into objects and vice-versa, a component of web frameworks e.g. Django.
+
+* POSIX:  all the Linux / Unix-like standards for working in a console.  Example usage: the Apple operating systems tend to be more POSIX-compliant than Microsoft Windows.
+
+* PostgreSQL:  a powerful open source free database with strong GIS features (optional).  Often used in LAMP-style client-server architectures.
+
+* Python Enhancement Proposal (PEP):  The means whereby Python is advanced i.e. new features added or old features deprecated.
+
+* Planet Python:  one of many websites devoted to tracking stories of interest to the Python community.  http://planetpython.org/
+
+* protocol:  the history of the Internet as a bundle of protocols (SMTP, NNTP, FTP...) that really took off when HTTP came along and provided the unifying concept of a GUI/graphic web browser (MOSAIC, Netscape... on to Browser War period).
+
+* Pycon:  any conference featuring Python for which the PSF has granted permission to use this trademark.  Many Pycons may be happening at the same time in different places around the world.  EuroPython pre-dates Pycon given Python is originally a product of the Netherlands.
+
+* Python: a general purpose object oriented language, used extensively in PDX Code Guild courses.  The inventor of this computer language, Guido von Rossum, is from the Netherlands originally.  Like the Netherlands, Python is cosmopolitan and incorporates good ideas from many languages, without becoming a hodge-podge.
+
+* python.org:  a source of secure and complete Python distros (but not the only such source).  A community hub in Python World (Planet Python).
+
+* Python Software Foundation (PSF):  owns and controls intellectual around the Python computer language, such as the logo, the Python.org website, and name "Pycon" in addition to the language itself.
+
+* queue:  the Python list structure may be used as a queue, but the Python standard library comes with a variety of queues, often used in multi-threaded programs where tasks line up in a queue and worker objects grab them off the other end, perhaps reported back to said queue when the task is done.  Queues tend to be "first come first serve" i.e. FIFO (first in first out) though some queues allow for "cuts in line" i.e. prioritization.
+
+* REPL:  ("repple") Read Evaluate Print Loop (interactive command line or "chat window")use them, many to choose from
+
+* RSA:  one of the public key encryption algorithms, in the commons, invented by Rivest, Shamir and Averill, at that time all in Cambridge, Massachusetts.  Public key crypto allows strangers to establish encrypted communications without first having to exchange a "symmetric key".
+
+* scala:  Scala is an acronym for “Scalable Language”.  Targets the JVM.
+
+* server-side language:  a computer language used on the server in client-server architectures (versus client-side).  Python is often used on the server, JavaScript on the client.
+
+* SMTP:  simple mail transfer protocol.  Used by email clients.  Although ASCII-based, base64 encoding allows for binary MIME types.
+
+* Structured Query Language (SQL):  originally designed to be used directly by clerical workers, it was quickly made a specialized skill known only to specific IT workers such as DBAs.  SQL allows one to select, insert, update and delete rows in a database table.
+
+* stack: has meaning in the sense of LAMP but also as a LIFO data structure.  When one keeps having prerequisite tasks to accomplish a goal, these may be "pushed down on the stack" only to be "popped off" in a "last in first out" order i.e. what is at the top of the stack is whatever task was just added.  Compare with queue.
+
+* symmetric key:  the kind of secret code where both the sender and receiver need to share a common key.  Public key algorithms such as RSA do not require a symmetric key to be based in order to establish an encrypted connection (see HTTPS).
+
+* tcl:  a programming language, pronounced "tickle".  The language behind Tk, which Python harnesses to give us IDLE.  The tkinter module gives Python programs control over the Tk event loop.
+
+* TCP / IP:  the protocol underpinning the application specific protocols.  Recommended viewing:  Warriors of the Net (animated cartoon about packets, routers, firewalls etc.)
+
+* thick vs thin client:  I told the story of how database access (a perennial need of most any enterprise) used to be through in-house proprietary solutions until the browser wars ended and we realized the browser itself (thin client) could be a front end to many worlds.  The proprietary component simply moves to the server.  Much easier to have browsers for clients versus pushing out zillions of unique executables to run on client machines, each needing individual updating.
+
+* Tk:  a GUI tool kit, written in tcl.
+
+* tree:  a data structure, like the queue and stack, sometimes built recursively.  Edges "fan out" and never from circles or cycles, which cycles turn a tree into something more inclusive:  a graph (or network).
+
+* Ubuntu:  one of the more popular Linux distros, a product of Canonical founded by Mark Shuttleworth of South Africa (see JuJu).
+
+* Unicode:  an international standard for encoding human languages and their many symbols (glyphs), a mapping, like ASCII.
+
+* VCS:  version control system.
+
+* version control:  software tools that keep track of all commits to a project and provide branching and forking capabilities, as well as roll back.  A version control system (VCS) allows multiple parties to work on a project simultaneously by bringing order and organizational memory to the development process.  Git is a popular version control system, originally developed by Linus Torvalds in support of Linux development.
+
+* virtual machine:  designed to run low level bytecodes similar to assembler code, while providing management services such as garbage collection.  Computer languages may be designed to target a VM (examples:  Python, Java, Clojure).
+
+* wiki:  a kind of website that allows extension by multiple users via "Wiki Words" and structured text.  Invented by Ward Cunningham of Portland, Oregon.  Wikipedia is a wiki.  First wiki:  c2.com  (see https://en.wikipedia.org/wiki/WikiWikiWeb).
+
+* web browser:  a client side application used to render HTML / CSS, run JavaScript, and to send and receive HTML requests and responses.  The complement of a server in client-server architecture.
+
+* XML:  the more formal markup language standard of which HTML is a subset, or more properly XHTML.

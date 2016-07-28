@@ -1,0 +1,135 @@
+{
+    "F": [
+        9,
+        "F",
+        "Fluorine",
+        18.9984032,
+        "Metalloid"
+    ],
+    "Be": [
+        4,
+        "Be",
+        "Beryllium",
+        9.012182,
+        "Alkaline earth metal"
+    ],
+    "Li": [
+        3,
+        "Li",
+        "Lithium",
+        6.941,
+        "Alkali metal"
+    ],
+    "K": [
+        19,
+        "K",
+        "Potassium",
+        39.0983,
+        "Alkali metal"
+    ],
+    "C": [
+        6,
+        "C",
+        "Carbon",
+        12.0107,
+        "Noble gas"
+    ],
+    "H": [
+        1,
+        "H",
+        "Hydrogen",
+        1.00794,
+        "Other nonmetal"
+    ],
+    "O": [
+        8,
+        "O",
+        "Oxygen",
+        15.9994,
+        "Other nonmetal"
+    ],
+    "Na": [
+        11,
+        "Na",
+        "Sodium",
+        22.98976928,
+        "Alkali metal"
+    ],
+    "Mg": [
+        12,
+        "Mg",
+        "Magnesium",
+        24.305,
+        "Alkaline earth metal"
+    ],
+    "B": [
+        5,
+        "B",
+        "Boron",
+        10.811,
+        "Metalloid"
+    ],
+    "Ne": [
+        10,
+        "Ne",
+        "Neon",
+        20.1797,
+        "Noble gas"
+    ],
+    "Si": [
+        14,
+        "Si",
+        "Silicon",
+        28.0855,
+        "Metalloid"
+    ],
+    "Al": [
+        13,
+        "Al",
+        "Aluminum",
+        26.9815386,
+        "Post-transition metal"
+    ],
+    "Ar": [
+        18,
+        "Ar",
+        "Argon",
+        39.948,
+        "Nobel gas"
+    ],
+    "Cl": [
+        17,
+        "Cl",
+        "Chlorine",
+        35.453,
+        "Halogen"
+    ],
+    "He": [
+        2,
+        "He",
+        "Helium",
+        4.002602,
+        "Nobel gas"
+    ],
+    "P": [
+        15,
+        "P",
+        "Phosphorous",
+        30.973762,
+        "Other nonmetal"
+    ],
+    "S": [
+        16,
+        "S",
+        "Sulfur",
+        32.065,
+        "Other nonmetal"
+    ],
+    "N": [
+        7,
+        "N",
+        "Nitrogen",
+        14.0067,
+        "Other nonmetal"
+    ]
+}
