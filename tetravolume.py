@@ -5,6 +5,7 @@ Kirby Urner (c) MIT License
 """
 from math import sqrt, hypot
 from qrays import Qvector, Vector
+import sys
 
 class Tetrahedron:
     """
@@ -131,4 +132,14 @@ class Test_Tetrahedron(unittest.TestCase):
 
         
 if __name__ == "__main__":
-    unittest.main()
+    args = sys.argv[1:]
+    try:
+        args = [float(x) for x in args] # floats
+        t = Tetrahedron(*args)
+    except TypeError:
+        t = Tetrahedron(1,1,1,1,1,1)
+        print("defaults used")
+    print(t.ivm_volume())
+    print(t.xyz_volume())
+    
+    # unittest.main()
