@@ -2,7 +2,12 @@
 Euler volume, modified by Gerald de Jong
 http://www.grunch.net/synergetics/quadvols.html
 Kirby Urner (c) MIT License
+
+See:
+http://mathforum.org/kb/thread.jspa?threadID=2836546
+for explanation of quadrays, used for some unit tests
 """
+
 from math import sqrt, hypot
 from qrays import Qvector, Vector
 import sys
