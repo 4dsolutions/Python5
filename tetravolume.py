@@ -130,8 +130,7 @@ class Test_Tetrahedron(unittest.TestCase):
                 (a-b).length(), (b-c).length(), (c-a).length()).xyz_volume()
         self.assertAlmostEqual(D_tet.xyz_volume() * sqrt(9/8), R_cube, 4)
 
-        
-if __name__ == "__main__":
+def command_line():
     args = sys.argv[1:]
     try:
         args = [float(x) for x in args] # floats
@@ -141,5 +140,9 @@ if __name__ == "__main__":
         print("defaults used")
     print(t.ivm_volume())
     print(t.xyz_volume())
-    
-    # unittest.main()
+        
+if __name__ == "__main__":
+    if len(sys.argv)==7:
+        command_line()  
+    else:
+        unittest.main()
