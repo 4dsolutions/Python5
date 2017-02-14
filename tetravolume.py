@@ -11,6 +11,9 @@ for explanation of quadrays, used for some unit tests
 from math import sqrt, hypot
 from qrays import Qvector, Vector
 import sys
+from decimal import Decimal
+
+s3 = Decimal(9)/Decimal(8)
 
 class Tetrahedron:
     """
@@ -31,11 +34,11 @@ class Tetrahedron:
         ivmvol = ((self._addopen() 
                     - self._addclosed() 
                     - self._addopposite())/2) ** 0.5
-        return round(ivmvol,5)
+        return ivmvol
 
     def xyz_volume(self):
-        ivmvol = sqrt(8/9) * self.ivm_volume()
-        return round(ivmvol,5)
+        xyzvol = sqrt(8/9) * self.ivm_volume()
+        return xyzvol
 
     def _addopen(self):
         a2,b2,c2,d2,e2,f2 = self.a2, self.b2, self.c2, self.d2, self.e2, self.f2
@@ -83,11 +86,11 @@ class Test_Tetrahedron(unittest.TestCase):
 
     def test_unit_volume2(self):
         tet = Tetrahedron(R, R, R, R, R, R)
-        self.assertAlmostEqual(tet.xyz_volume(), 0.11785)
+        self.assertAlmostEqual(tet.xyz_volume(), 0.117851130)
 
     def test_phi_edge_tetra(self):
         tet = Tetrahedron(D, D, D, D, D, PHI)
-        self.assertAlmostEqual(tet.ivm_volume(), 0.70711)
+        self.assertAlmostEqual(tet.ivm_volume(), 0.70710678)
 
     def test_right_tetra(self):
         e = hypot(sqrt(3)/2, sqrt(3)/2)  # right tetrahedron
