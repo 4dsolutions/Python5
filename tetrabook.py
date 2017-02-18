@@ -5,7 +5,7 @@ Created on Fri Feb 17 21:41:28 2017
 @author: kurner
 """
 
-from math import sqrt as rt2, asin, pi, degrees
+from math import sqrt as rt2, asin, sin, pi, degrees, radians
 from tetravolume import Tetrahedron
 
 # CONSTANTS
@@ -85,13 +85,25 @@ class TetraBook:
         angle = asin(self._altitude/rt2_3)
         return (angle if self.radians 
                 else degrees(angle))
+                
+    @angle_s.setter         
+    def angle_s(self, r):
+        if not self.radians:
+            r = radians(r)
+        self.altitude = rt2_3 * sin(r)  
         
     @property         
     def angle_l(self): 
         angle = asin(self._altitude/rt2_3)          
         return (pi - angle if self.radians 
                 else 180 - degrees(angle))
-        
+    
+    @angle_l.setter
+    def angle_l(self, r): 
+        if not self.radians:
+            r = radians(r)
+        self.altitude = rt2_3 * sin(r)
+                          
     def __str__(self):
         return ("L: {:7.5f} S: {:7.5f} A: {:7.5f} " 
                 "XYZvol: {:7.5f} IVMvol: {:7.5f}").format(
@@ -155,7 +167,7 @@ def volumes():
 def vary_altitude():
     book = TetraBook()
     book.radians = False
-    print("ALT     IVM     XYZ     Long    Short   AngleL  AngleS")
+    print("ALT     IVM     XYZ     Long    Short    AngleL    AngleS")
     for alt in [(n/9)*rt2_3 for n in range(0,10)]:
         book.altitude = alt
         xyzvol = (1/3) * xyz_base * book.altitude
@@ -173,10 +185,25 @@ def vary_altitude():
                                                book.short_edge,
                                                book.angle_l,
                                                book.angle_s))
+def vary_angle():
+    book = TetraBook()
+    book.radians = False
+    print("ALT     IVM     XYZ     Long    Short   AngleL     AngleS")
+    for angle in [10*n for n in range(0,10)]:
+        book.angle_s = angle                   
+        print("{:7.5f} {:7.5f} {:7.5f} {:7.5f} {:7.5f} {:9.5f} {:9.5f}".format(
+                                               book.altitude,
+                                               book.ivm_volume, 
+                                               book.xyz_volume,
+                                               book.long_edge,
+                                               book.short_edge,
+                                               book.angle_l,
+                                               book.angle_s))
                                                
 if __name__ == "__main__":
     #tests()
     #vary_altitude()
-    volumes()
+    #volumes()
+    vary_angle()
     
     
