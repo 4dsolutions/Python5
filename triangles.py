@@ -17,7 +17,7 @@ is_scalene (all edges different length), is_obtuse,
 is_equiangular (all angles & edges equal)
 is_right (Pythagorean Theorem checks out) 
 is_acute (all angles < 90) 
-is_iscosceles (defined as not scalene)
+is_isosceles (defined as not scalene)
 
 https://en.wikipedia.org/wiki/Triangle#Types_of_triangle
 
