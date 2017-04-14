@@ -4,6 +4,7 @@ Created on Sat Jun  4 09:07:22 2016
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ Apr  9, 2017: added distance, x,y,z properties to qray
  Jun 11, 2016: refactored to make Qvector and Vector each standalone
  Aug 29, 2000: added extra-class, class dependent methods for
     dot and cross as alternative syntax
@@ -22,7 +23,8 @@ Created on Sat Jun  4 09:07:22 2016
  Mar  5, 2000: added angle function
 """
 
-from math import radians, degrees, cos, sin, acos
+from decimal import Decimal
+from math import radians, degrees, cos, sin, acos, sqrt
 from operator import add, sub, mul, neg
 from collections import namedtuple
 
@@ -35,7 +37,7 @@ class Vector:
 
     def __init__(self, arg):
         """Initialize a vector at an (x,y,z)"""
-        self.xyz = XYZ(*map(float,arg))
+        self.xyz = XYZ(*map(Decimal,arg))
 
     def __repr__(self):
         return repr(self.xyz)
@@ -54,14 +56,14 @@ class Vector:
         
     def __mul__(self, scalar):
         """Return vector (self) * scalar."""
-        newcoords = [scalar * dim for dim in self.xyz]
+        newcoords = [Decimal(scalar) * dim for dim in self.xyz]
         return Vector(newcoords)
 
     __rmul__ = __mul__ # allow scalar * vector
 
     def __truediv__(self,scalar):
         """Return vector (self) * 1/scalar"""        
-        return self.__mul__(1.0/scalar)
+        return self.__mul__(Decimal(1)/scalar)
     
     def __add__(self,v1):
         """Add a vector to this vector, return a vector""" 
@@ -77,7 +79,7 @@ class Vector:
         return Vector(tuple(map(neg, self.xyz)))
 
     def unit(self):
-        return self.__mul__(1.0/self.length())
+        return self.__mul__(Decimal(1)/self.length())
 
     def dot(self,v1):
         """Return scalar dot product of this with another vector."""
@@ -92,7 +94,7 @@ class Vector:
     
     def length(self):
         """Return this vector's length"""
-        return self.dot(self) ** 0.5
+        return pow(self.dot(self), Decimal(0.5))
 
     def angle(self,v1):
        """Return angle between self and v1, in decimal degrees"""
@@ -180,6 +182,7 @@ class Qvector:
 
     def norm(self, arg):
         """Normalize such that 4-tuple all non-negative members."""
+        arg = map(Decimal, arg)
         return IVM(*tuple(map(sub, arg, [min(arg)] * 4))) 
     
     def norm0(self):
@@ -202,6 +205,18 @@ class Qvector:
     @property
     def d(self):
         return self.coords.d
+        
+    @property
+    def x(self):
+        return self.xyz().x
+        
+    @property
+    def y(self):
+        return self.xyz().y
+        
+    @property
+    def z(self):
+        return self.xyz().z
         
     def __mul__(self, scalar):
         """Return vector (self) * scalar."""
@@ -297,3 +312,8 @@ def angle(a,b):
 def length(a):
     return a.length()
 
+def distance(v0, v1):
+    delta_x = v0.x - v1.x
+    delta_y = v0.y - v1.y
+    delta_z = v0.z - v1.z
+    return sqrt(delta_x ** 2 + delta_y ** 2 + delta_z ** 2)
