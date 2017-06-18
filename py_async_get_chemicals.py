@@ -28,29 +28,30 @@ elements.append(
 	)
 
 elements.append(
-	Element("Oxygen", 
+	Element("Gold", 
 			"http://thekirbster.pythonanywhere.com/api/elements?elem=Au")
 	)
 
 elements.append(
-	Element("Oxygen", 
+	Element("Sulfur", 
 			"http://thekirbster.pythonanywhere.com/api/elements?elem=S")
 	)
 
 elements.append(
-	Element("Oxygen", 
+	Element("Lead", 
 			"http://thekirbster.pythonanywhere.com/api/elements?elem=Pb")
 	)
 
 elements.append(
-	Element("Oxygen", 
+	Element("Mercury", 
 			"http://thekirbster.pythonanywhere.com/api/elements?elem=Hg")
 	)
 
 elements.append(
-	Element("Oxygen", 
-			"http://thekirbster.pythonanywhere.com/api/elements?elem=O")
+	Element("Helium", 
+			"http://thekirbster.pythonanywhere.com/api/elements?elem=He")
 	)
+
 async def get_element(elem):
 	print(elem.url)
 	response = await aiohttp.request('GET', url=elem.url)
