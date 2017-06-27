@@ -53,6 +53,7 @@ tuples = (
     ("Learn Python the Hard Way","http://learnpythonthehardway.org/book/"),
     ("What Is Code?","http://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/"),
     ("Become a Better Programmer Through Mundane Programming","http://mundaneprogramming.github.io/slides/#/"),
+    ("Guido van Rossum: The Modern Era of Python", "https://youtu.be/rTTFh7HOlC0"), 
     )
 
 # lets make these namedtuples instead OK?
