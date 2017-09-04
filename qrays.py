@@ -38,9 +38,12 @@ class Vector:
     def __init__(self, arg):
         """Initialize a vector at an (x,y,z)"""
         self.xyz = XYZ(*map(Decimal,arg))
-
+    
     def __repr__(self):
         return repr(self.xyz)
+    
+    def __getitem__(self, idx):
+        return self.xyz[idx]
     
     @property
     def x(self):
@@ -182,7 +185,7 @@ class Qvector:
 
     def norm(self, arg):
         """Normalize such that 4-tuple all non-negative members."""
-        arg = map(Decimal, arg)
+        arg = tuple(map(Decimal, arg)) # prevent exhaustion
         return IVM(*tuple(map(sub, arg, [min(arg)] * 4))) 
     
     def norm0(self):
@@ -274,7 +277,7 @@ class Qvector:
         
     def xyz(self):
         a,b,c,d     =  self.coords
-        k           =  0.5/root2
+        k           =  Decimal(0.5/root2)
         xyz         = (k * (a - b - c + d),
                        k * (a - b + c - d),
                        k * (a + b - c - d))
