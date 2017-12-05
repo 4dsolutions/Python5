@@ -87,7 +87,7 @@ def make_tet(v0,v1,v2):
 PHI = (1 + root5)/Decimal(2)
 
 R = Decimal(0.5)
-D = Decimal(1)
+D = Decimal(1.0)
 root3 = pow(Decimal(3), Decimal(0.5))
 root2 = pow(Decimal(2), Decimal(0.5))
 
@@ -98,6 +98,16 @@ class Test_Tetrahedron(unittest.TestCase):
         tet = Tetrahedron(D, D, D, D, D, D)
         self.assertEqual(tet.ivm_volume(), Decimal(1), "Volume not 1")
 
+    def test_e_module(self):
+        e0 = D
+        e1 = Decimal('3').sqrt() * PHI**-1
+        e2 = ((Decimal('5') - root5)/2).sqrt()
+        e3 = (Decimal('3') - root5)/2
+        e4 = (Decimal('5') - 2*root5).sqrt()
+        e5 = 1/PHI
+        tet = Tetrahedron(e0, e1, e2, e3, e4, e5)
+        self.assertTrue(Decimal(1/23) > tet.ivm_volume()/8 > Decimal(1/24), "Wrong E-mod")
+        
     def test_unit_volume2(self):
         tet = Tetrahedron(R, R, R, R, R, R)
         self.assertAlmostEqual(float(tet.xyz_volume()), 0.117851130)

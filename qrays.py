@@ -24,7 +24,7 @@ Created on Sat Jun  4 09:07:22 2016
 """
 
 from decimal import Decimal
-from math import radians, degrees, cos, sin, acos, sqrt
+from math import radians, degrees, cos, sin, acos, sqrt, atan
 from operator import add, sub, mul, neg
 from collections import namedtuple
 
@@ -150,7 +150,7 @@ class Vector:
             
         else:  
             
-            theta = degrees(math.atan(self.y/self.x))
+            theta = degrees(atan(self.y/self.x))
             if   self.x < 0 and self.y == 0:   theta =    180
             elif self.x < 0 and self.y <  0:   theta =    180 - theta
             elif self.x < 0 and self.y >  0:   theta = - (180 + theta)
@@ -191,7 +191,7 @@ class Qvector:
     def norm0(self):
         """Normalize such that sum of 4-tuple members = 0"""
         q = self.coords
-        return IVM(*tuple(map(sub, q, [sum(q)/4.0] * 4))) 
+        return IVM(*tuple(map(sub, q, [sum(q)/Decimal("4.0")] * 4))) 
 
     @property
     def a(self):
@@ -248,11 +248,11 @@ class Qvector:
     def dot(self,v1):
         """Return the dot product of self with another vector.
         return a scalar"""
-        return 0.5 * sum(map(mul, self.norm0(), v1.norm0()))
+        return Decimal("0.5") * sum(map(mul, self.norm0(), v1.norm0()))
 
     def length(self):
         """Return this vector's length"""
-        return self.dot(self) ** 0.5
+        return self.dot(self).sqrt()
         
     def cross(self,v1):
         """Return the cross product of self with another vector.
