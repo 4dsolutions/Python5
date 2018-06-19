@@ -206,6 +206,12 @@ class Qvector:
     def __eq__(self, other):
         return self.coords == other.coords
         
+    def __lt__(self, other):
+        return self.coords < other.coords
+
+    def __gt__(self, other):
+        return self.coords > other.coords
+    
     def __hash__(self):
         return hash(self.coords)
     
