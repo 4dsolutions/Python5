@@ -4,6 +4,7 @@ Created on Sat Jun  4 09:07:22 2016
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ Jun 20, 2018: make Qvectors sortable, hashable
  Jun 11, 2016: refactored to make Qvector and Vector each standalone
  Aug 29, 2000: added extra-class, class dependent methods for
     dot and cross as alternative syntax
