@@ -125,6 +125,7 @@ class Vector:
         rad    = radians(deg)
         newx   = cos(rad) * self.x - sin(rad) * self.z
         newz   = sin(rad) * self.x + cos(rad) * self.z
+        newxyz = [round(p ,8) for p in (newx, self.y, newz)]
         return type(self)(newxyz)
 
     def rotz(self, deg):
@@ -242,7 +243,12 @@ class Qvector:
                   
     def dot(self,v1):
         """Return the dot product of self with another vector.
-        return a scalar"""
+        return a scalar
+        
+        >>> s1 = a.dot(b)/(a.length() * b.length())
+        >>> degrees(acos(s1))
+        109.47122063449069
+        """
         return 0.5 * sum(map(mul, self.norm0(), v1.norm0()))
 
     def length(self):
