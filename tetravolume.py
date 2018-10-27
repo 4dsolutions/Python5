@@ -179,7 +179,18 @@ class Test_Tetrahedron(unittest.TestCase):
         T = Tetrahedron(PHI, 1/PHI, 1.0, root2, root2/PHI, root2)
         result = T.ivm_volume()
         self.assertAlmostEqual(result, 1, 7)
-        
+
+    def test_koski(self):
+        a = 1 
+        b = PHI ** -1
+        c = PHI ** -2
+        d = (root2) * PHI ** -1 
+        e = (root2) * PHI ** -2
+        f = (root2) * PHI ** -1       
+        T = Tetrahedron(a,b,c,d,e,f)
+        result = T.ivm_volume()
+        self.assertAlmostEqual(result, PHI ** -3, 7)       
+
 def command_line():
     args = sys.argv[1:]
     try:
