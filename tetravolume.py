@@ -175,6 +175,11 @@ class Test_Tetrahedron(unittest.TestCase):
         result = make_tet(PHI*q, (1/PHI)*p, r)
         self.assertAlmostEqual(result[0], 1, 7)
         
+    def test_phi_tet_3(self):
+        T = Tetrahedron(PHI, 1/PHI, 1.0, root2, root2/PHI, root2)
+        result = T.ivm_volume()
+        self.assertAlmostEqual(result, 1, 7)
+        
 def command_line():
     args = sys.argv[1:]
     try:
