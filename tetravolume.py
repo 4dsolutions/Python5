@@ -14,7 +14,10 @@ import sys
 
 S3    = pow(9/8, 0.5)
 root2 = rt2(2)
+root3 = rt2(3)
 root5 = rt2(5)
+root6 = rt2(6)
+PHI = (1 + root5)/2.0
 
 class Tetrahedron:
     """
@@ -81,12 +84,8 @@ def make_tet(v0,v1,v2):
                       (v0-v1).length(), (v1-v2).length(), (v2-v0).length())
     return tet.ivm_volume(), tet.xyz_volume()
 
-PHI = (1 + root5)/2.0
-
 R = 0.5
 D = 1.0
-root3 = pow(3, .5)
-root2 = pow(2, .5)
 
 import unittest
 class Test_Tetrahedron(unittest.TestCase):
@@ -97,7 +96,7 @@ class Test_Tetrahedron(unittest.TestCase):
 
     def test_e_module(self):
         e0 = D
-        e1 = rt2(3) * PHI**-1
+        e1 = root3 * PHI**-1
         e2 = rt2((5 - root5)/2)
         e3 = (3 - root5)/2
         e4 = rt2(5 - 2*root5)
@@ -160,6 +159,21 @@ class Test_Tetrahedron(unittest.TestCase):
         r = Qvector((2,0,1,1))
         result = make_tet(5*q, 2*p, 2*r)
         self.assertAlmostEqual(result[0], 20, 7)
+        
+    def test_phi_tet(self):
+        "edges from common vertex: phi, 1/phi, 1"
+        p = Vector((1, 0, 0))
+        q = Vector((1, 0, 0)).rotz(60) * PHI
+        r = Vector((0.5, root3/6, root6/3)) * 1/PHI
+        result = make_tet(p, q, r)
+        self.assertAlmostEqual(result[0], 1, 7)
+        
+    def test_phi_tet_2(self):
+        p = Qvector((2,1,0,1))
+        q = Qvector((2,1,1,0))
+        r = Qvector((2,0,1,1))
+        result = make_tet(PHI*q, (1/PHI)*p, r)
+        self.assertAlmostEqual(result[0], 1, 7)
         
 def command_line():
     args = sys.argv[1:]
