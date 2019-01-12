@@ -11,7 +11,7 @@ from math import sqrt as rt2
 from qrays import Qvector, Vector
 import sys
 
-Syn3    = pow(9/8, 0.5)
+Syn3  = pow(9/8, 0.5)
 root2 = rt2(2)
 root3 = rt2(3)
 root5 = rt2(5)
@@ -60,7 +60,7 @@ def ivm_volume(edges):
     
     return ivmvol
     
-def xyz_volume(edges):
+def xyz_volume(edges, Syn3 = Syn3):  # defaults to global Syn3
     return (1/Syn3) * ivm_volume(edges)
 
 def make_tet(v0,v1,v2):
