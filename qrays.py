@@ -2,6 +2,16 @@
 """
 Created on Sat Jun  4 09:07:22 2016
 
+Vectors and Qvectors use the same metric i.e. the 
+xyz vector and corresponding ivm vector always have 
+the same length.
+
+In contrast, the tetravolume.py modules in some cases 
+assumes that volume and area use R-edge cubes and triangles
+for XYZ units respectively, and D-edge tetrahedrons 
+and triangles for IVM units of volume and area.  See
+the docstring for more details.
+
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
  May 25, 2019: add area methods based on cross productsv

@@ -3,6 +3,24 @@ Euler volume, modified by Gerald de Jong
 http://www.grunch.net/synergetics/quadvols.html
 Kirby Urner (c) MIT License
 
+The tetravolume.py methods make_tet and make_tri 
+assume that volume and area use R-edge cubes and 
+triangles for XYZ units respectively, and D-edge 
+tetrahedrons and triangles for IVM units of volume 
+and area (D = 2R).
+
+The tetrahedron of edges D has sqrt(8/9) the 
+volume of a cube of edges R, yet each is unit in
+its respective matrix.
+
+The triangle of edges D has an XYZ area of sqrt(3)
+i.e. an equilateral triangle of edges 2 in R-square
+units.  The IVM area of the same triangle is simply 1.
+
+The cube of edges sqrt(2) in R units, has volume 
+sqrt(2) to the 3rd power.  One third of that volume
+is our unit tetrahedron of edges D (cube face diagonals).
+
 See:
 http://mathforum.org/kb/thread.jspa?threadID=2836546
 for explanation of quadrays, used for some unit tests
@@ -87,6 +105,29 @@ def make_tet(v0,v1,v2):
                       (v0-v1).length(), (v1-v2).length(), (v2-v0).length())
     return tet.ivm_volume(), tet.xyz_volume()
 
+class Triangle:
+    
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c  
+
+    def ivm_area(self):
+        ivmarea = self.xyz_area() * 1/rt2(3)
+        return ivmarea
+
+    def xyz_area(self):
+        a,b,c = self.a, self.b, self.c
+        xyzarea = rt2((a+b+c)* (-a+b+c) * (a-b+c) * (a+b-c))
+        return xyzarea
+    
+def make_tri(v0,v1):
+    """
+    three edges from any corner, remaining three edges computed
+    """
+    tri = Triangle(v0.length(), v1.length(), (v1-v0).length())
+    return tri.ivm_area(), tri.xyz_area()
+
 R = 0.5
 D = 1.0
 
@@ -109,8 +150,12 @@ class Test_Tetrahedron(unittest.TestCase):
         
     def test_unit_volume2(self):
         tet = Tetrahedron(R, R, R, R, R, R)
-        self.assertAlmostEqual(float(tet.xyz_volume()), 0.117851130)
+        self.assertAlmostEqual(tet.xyz_volume(), 0.117851130)
 
+    def test_unit_volume3(self):
+        tet = Tetrahedron(R, R, R, R, R, R)
+        self.assertAlmostEqual(tet.ivm_volume(), 0.125)
+        
     def test_phi_edge_tetra(self):
         tet = Tetrahedron(D, D, D, D, D, PHI)
         self.assertAlmostEqual(float(tet.ivm_volume()), 0.70710678)
@@ -128,9 +173,9 @@ class Test_Tetrahedron(unittest.TestCase):
         self.assertAlmostEqual(tet[0], 0.25) 
 
     def test_octant(self):
-        x = Vector((R, 0,   0))
-        y = Vector((0  , R, 0))
-        z = Vector((0  , 0  , R))
+        x = Vector((R, 0, 0))
+        y = Vector((0, R, 0))
+        z = Vector((0, 0, R))
         tet = make_tet(x,y,z)
         self.assertAlmostEqual(tet[1], 1/6, 5) # good to 5 places
 
@@ -224,6 +269,26 @@ class Test_Tetrahedron(unittest.TestCase):
         T = Tetrahedron(a,b,c,d,e,f)
         result = T.ivm_volume()
         self.assertAlmostEqual(result, PHI ** -3, 7)       
+
+class Test_Triangle(unittest.TestCase):
+    
+    def test_unit_area1(self):
+        tri = Triangle(D, D, D)
+        self.assertEqual(tri.ivm_area(), 1)
+        
+    def test_unit_area2(self):
+        tri = Triangle(2, 2, 2)
+        self.assertEqual(tri.ivm_area(), 4)
+        
+    def test_xyz_area3(self):
+        tri = Triangle(D, D, D)
+        self.assertEqual(tri.xyz_area(), rt2(3))
+        
+    def test_xyz_area4(self):
+        v1 = Vector((D, 0, 0))
+        v2 = Vector((0, D, 0))
+        xyz_area = make_tri(v1, v2)[1]
+        self.assertAlmostEqual(xyz_area, 2)
 
 def command_line():
     args = sys.argv[1:]
