@@ -83,34 +83,45 @@ class Vector:
         return self.__mul__(1.0/self.length())
 
     def dot(self,v1):
-        """Return scalar dot product of this with another vector."""
+        """
+        Return scalar dot product of this with another vector.
+        """
         return sum(map(mul , v1.xyz, self.xyz))
 
     def cross(self,v1):
-        """Return the vector cross product of this with another vector"""
+        """
+        Return the vector cross product of this with another vector
+        """
         newcoords = (self.y * v1.z - self.z * v1.y, 
                      self.z * v1.x - self.x * v1.z,
                      self.x * v1.y - self.y * v1.x )
         return type(self)(newcoords)
     
     def area(self,v1):
-        return self.cross(v1)
+        """
+        xyz area of a parallelogram with these edge lengths
+        """
+        return self.cross(v1).length()
     
     def length(self):
         """Return this vector's length"""
         return self.dot(self) ** 0.5
 
     def angle(self,v1):
-       """Return angle between self and v1, in decimal degrees"""
+       """
+       Return angle between self and v1, in decimal degrees
+       """
        costheta = round(self.dot(v1)/(self.length() * v1.length()),10)
        theta = degrees(acos(costheta))
        return round(theta,10)
 
     def rotaxis(self,vAxis,deg):
-        """Rotate around vAxis by deg
+        """
+        Rotate around vAxis by deg
         realign rotation axis with Z-axis, realign self accordingly,
         rotate by deg (counterclockwise) around Z, resume original
-        orientation (undo realignment)"""
+        orientation (undo realignment)
+        """
         
         r,phi,theta = vAxis.spherical()
         newv  = self.rotz(-theta).roty(phi)
@@ -278,7 +289,10 @@ class Qvector:
         return k*sum
     
     def area(self, v1):
-        return self.cross(v1) * 2/(3**0.5)
+        """
+        area in unit triangles of edges D
+        """
+        return self.cross(v1).length() * 2/(3**0.5)
 
     def angle(self, v1):
         return self.xyz().angle(v1.xyz())

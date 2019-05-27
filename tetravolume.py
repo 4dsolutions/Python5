@@ -128,31 +128,31 @@ class Test_Tetrahedron(unittest.TestCase):
         self.assertAlmostEqual(tet[0], 0.25) 
 
     def test_octant(self):
-        x = Vector((0.5, 0,   0))
-        y = Vector((0  , 0.5, 0))
-        z = Vector((0  , 0  , 0.5))
+        x = Vector((R, 0,   0))
+        y = Vector((0  , R, 0))
+        z = Vector((0  , 0  , R))
         tet = make_tet(x,y,z)
         self.assertAlmostEqual(tet[1], 1/6, 5) # good to 5 places
 
     def test_quarter_octahedron(self):
-        a = Vector((1,0,0))
-        b = Vector((0,1,0))
-        c = Vector((0.5,0.5,root2/2))
+        a = Vector((D,0,0))
+        b = Vector((0,D,0))
+        c = Vector((R,R,root2/2))
         tet = make_tet(a, b, c)
         self.assertAlmostEqual(tet[0], 1, 5) # good to 5 places  
 
     def test_xyz_cube(self):
-        a = Vector((0.5, 0.0, 0.0))
-        b = Vector((0.0, 0.5, 0.0))
-        c = Vector((0.0, 0.0, 0.5))
+        a = Vector((R, 0.0, 0.0))
+        b = Vector((0.0, R, 0.0))
+        c = Vector((0.0, 0.0, R))
         R_octa = make_tet(a,b,c) 
         self.assertAlmostEqual(6 * R_octa[1], 1, 4) # good to 4 places  
 
     def test_s3(self):
         D_tet = Tetrahedron(D, D, D, D, D, D)
-        a = Vector((0.5, 0.0, 0.0))
-        b = Vector((0.0, 0.5, 0.0))
-        c = Vector((0.0, 0.0, 0.5))
+        a = Vector((R, 0.0, 0.0))
+        b = Vector((0.0, R, 0.0))
+        c = Vector((0.0, 0.0, R))
         R_cube = 6 * make_tet(a,b,c)[1]
         self.assertAlmostEqual(D_tet.xyz_volume() * S3, R_cube, 4)
 
@@ -163,17 +163,35 @@ class Test_Tetrahedron(unittest.TestCase):
         result = make_tet(5*q, 2*p, 2*r)
         self.assertAlmostEqual(result[0], 20, 7)
         
-    def test_area_martian(self):
+    def test_area_martian1(self):
         p = Qvector((2,1,0,1))
         q = Qvector((2,1,1,0))
         result = p.area(q)
-        self.assertAlmostEqual(result.length(), 1)        
+        self.assertAlmostEqual(result, 1)        
  
     def test_area_martian2(self):
         p = 3 * Qvector((2,1,0,1))
         q = 4 * Qvector((2,1,1,0))
         result = p.area(q)
-        self.assertAlmostEqual(result.length(), 12)
+        self.assertAlmostEqual(result, 12)
+
+    def test_area_martian3(self):
+        qx = Vector((D,0,0)).quadray()
+        qy = Vector((R,rt2(3)/2,0)).quadray()
+        result = qx.area(qy)
+        self.assertAlmostEqual(result, 1, 7)
+        
+    def test_area_earthling1(self):
+        vx = Vector((1,0,0))
+        vy = Vector((0,1,0))
+        result = vx.area(vy)
+        self.assertAlmostEqual(result, 1)        
+
+    def test_area_earthling2(self):
+        vx = Vector((2,0,0))
+        vy = Vector((1,rt2(3),0))
+        result = vx.area(vy)
+        self.assertAlmostEqual(result, 2*rt2(3))    
         
     def test_phi_tet(self):
         "edges from common vertex: phi, 1/phi, 1"
