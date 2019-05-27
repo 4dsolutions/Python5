@@ -4,6 +4,7 @@ Created on Sat Jun  4 09:07:22 2016
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ May 25, 2019: add area methods based on cross productsv
  Jun 20, 2018: make Qvectors sortable, hashable
  Jun 11, 2016: refactored to make Qvector and Vector each standalone
  Aug 29, 2000: added extra-class, class dependent methods for
@@ -91,6 +92,9 @@ class Vector:
                      self.z * v1.x - self.x * v1.z,
                      self.x * v1.y - self.y * v1.x )
         return type(self)(newcoords)
+    
+    def area(self,v1):
+        return self.cross(v1)
     
     def length(self):
         """Return this vector's length"""
@@ -272,6 +276,9 @@ class Qvector:
                + a1*b2*C - a1*b2*D - a2*B*d1 + a2*B*c1 
                + a2*C*d1 - a2*D*c1 - a2*b1*C + a2*b1*D)
         return k*sum
+    
+    def area(self, v1):
+        return self.cross(v1) * 2/(3**0.5)
 
     def angle(self, v1):
         return self.xyz().angle(v1.xyz())

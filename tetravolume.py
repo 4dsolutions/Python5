@@ -163,6 +163,18 @@ class Test_Tetrahedron(unittest.TestCase):
         result = make_tet(5*q, 2*p, 2*r)
         self.assertAlmostEqual(result[0], 20, 7)
         
+    def test_area_martian(self):
+        p = Qvector((2,1,0,1))
+        q = Qvector((2,1,1,0))
+        result = p.area(q)
+        self.assertAlmostEqual(result.length(), 1)        
+ 
+    def test_area_martian2(self):
+        p = 3 * Qvector((2,1,0,1))
+        q = 4 * Qvector((2,1,1,0))
+        result = p.area(q)
+        self.assertAlmostEqual(result.length(), 12)
+        
     def test_phi_tet(self):
         "edges from common vertex: phi, 1/phi, 1"
         p = Vector((1, 0, 0))
