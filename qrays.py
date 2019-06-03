@@ -14,7 +14,7 @@ the docstring for more details.
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
- May 25, 2019: add area methods based on cross productsv
+ May 25, 2019: add area methods based on cross product
  Jun 20, 2018: make Qvectors sortable, hashable
  Jun 11, 2016: refactored to make Qvector and Vector each standalone
  Aug 29, 2000: added extra-class, class dependent methods for
