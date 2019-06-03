@@ -117,6 +117,9 @@ class Triangle:
         return ivmarea
 
     def xyz_area(self):
+        """
+        Heron's Formula, without the 1/4
+        """
         a,b,c = self.a, self.b, self.c
         xyzarea = rt2((a+b+c)* (-a+b+c) * (a-b+c) * (a+b-c))
         return xyzarea
