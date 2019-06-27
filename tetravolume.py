@@ -121,7 +121,7 @@ class Triangle:
         Heron's Formula, without the 1/4
         """
         a,b,c = self.a, self.b, self.c
-        xyzarea = rt2((a+b+c)* (-a+b+c) * (a-b+c) * (a+b-c))
+        xyzarea = rt2((a+b+c) * (-a+b+c) * (a-b+c) * (a+b-c))
         return xyzarea
     
 def make_tri(v0,v1):
@@ -293,6 +293,10 @@ class Test_Triangle(unittest.TestCase):
         xyz_area = make_tri(v1, v2)[1]
         self.assertAlmostEqual(xyz_area, 2)
 
+    def test_xyz_area5(self):
+        tri = Triangle(R, R, R)
+        self.assertAlmostEqual(tri.xyz_area(), (1/4)*(rt2(3)))
+        
 def command_line():
     args = sys.argv[1:]
     try:
