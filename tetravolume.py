@@ -295,7 +295,7 @@ class Test_Triangle(unittest.TestCase):
 
     def test_xyz_area5(self):
         tri = Triangle(R, R, R)
-        self.assertAlmostEqual(tri.xyz_area(), (1/4)*(rt2(3)))
+        self.assertAlmostEqual(tri.xyz_area(), (root3)/4)
         
 def command_line():
     args = sys.argv[1:]
