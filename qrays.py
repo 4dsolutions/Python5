@@ -14,6 +14,7 @@ the docstring for more details.
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ Sep 06, 2019: have type(self)() instead of Qvector() return outcomes
  May 25, 2019: add area methods based on cross product
  Jun 20, 2018: make Qvectors sortable, hashable
  Jun 11, 2016: refactored to make Qvector and Vector each standalone
@@ -245,7 +246,7 @@ class Qvector:
     def __mul__(self, scalar):
         """Return vector (self) * scalar."""
         newcoords = [scalar * dim for dim in self.coords]
-        return Qvector(newcoords)
+        return type(self)(newcoords)
 
     __rmul__ = __mul__ # allow scalar * vector
 
@@ -256,7 +257,7 @@ class Qvector:
     def __add__(self,v1):
         """Add a vector to this vector, return a vector""" 
         newcoords = tuple(map(add, v1.coords, self.coords))
-        return Qvector(newcoords)
+        return type(self)(newcoords)
         
     def __sub__(self,v1):
         """Subtract vector from this vector, return a vector"""
@@ -264,7 +265,7 @@ class Qvector:
     
     def __neg__(self):      
         """Return a vector, the negative of this one."""
-        return Qvector(tuple(map(neg, self.coords)))
+        return type(self)(tuple(map(neg, self.coords)))
                   
     def dot(self,v1):
         """Return the dot product of self with another vector.
@@ -283,20 +284,20 @@ class Qvector:
     def cross(self,v1):
         """Return the cross product of self with another vector.
         return a Qvector"""
-        A = Qvector((1,0,0,0))
-        B = Qvector((0,1,0,0))
-        C = Qvector((0,0,1,0))
-        D = Qvector((0,0,0,1))
+        A = type(self)((1,0,0,0))
+        B = type(self)((0,1,0,0))
+        C = type(self)((0,0,1,0))
+        D = type(self)((0,0,0,1))
         a1,b1,c1,d1 = v1.coords
         a2,b2,c2,d2 = self.coords
         k= (2.0**0.5)/4.0
-        sum =   (A*c1*d2 - A*d1*c2 - A*b1*d2 + A*b1*c2
+        the_sum =   (A*c1*d2 - A*d1*c2 - A*b1*d2 + A*b1*c2
                + A*b2*d1 - A*b2*c1 - B*c1*d2 + B*d1*c2 
                + b1*C*d2 - b1*D*c2 - b2*C*d1 + b2*D*c1 
                + a1*B*d2 - a1*B*c2 - a1*C*d2 + a1*D*c2
                + a1*b2*C - a1*b2*D - a2*B*d1 + a2*B*c1 
                + a2*C*d1 - a2*D*c1 - a2*b1*C + a2*b1*D)
-        return k*sum
+        return k * the_sum
     
     def area(self, v1):
         """
