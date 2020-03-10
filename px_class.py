@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Last updated Jan 10, 2016
+Last updated Mar 10, 2020
 
 @author: Kirby Urner
 (c) MIT License
@@ -19,16 +19,16 @@ class P:
     
     self._code: a dict, is a mapping of iterable elements 
     to themselves in any order.
+
+    start out with Identity, or directly inject the mapping as
+    a dict or use an inversions table to construct the permutation
     """   
 
     def __init__(self, 
-                 the_code = None,   # direct inject
-                 inv_table = None,  # construct 
-                 iterable = ascii_lowercase + ' '): # default domain
-        """
-        start out with Identity, or directly inject the mapping as
-        a dict or use an inversions table to construct the permutation
-        """
+        the_code = None,   # direct inject
+        inv_table = None,  # construct 
+        iterable = ascii_lowercase + ' '): # default domain
+
         if the_code:
             self._code = the_code
             
@@ -42,10 +42,14 @@ class P:
             self._code = dict(zip(sorted(inv_table), values))
             
         elif iterable:    
-            if not "__iter__" in dir(iterable):
+            try:
+              # create two iterators for zipping together
+              iter1 = iter(iterable)
+              iter2 = iter(iterable)
+            except:
                 raise TypeError
                 
-            self._code = dict(zip(iterable, iterable))
+            self._code = dict(zip(iter1, iter2))
         
     def shuffle(self):
         """
@@ -54,8 +58,9 @@ class P:
         # use shuffle
         # something like
         the_keys = list(self._code.keys()) # grab keys
-        shuffle(the_keys)  # shuffles other one
+        shuffle(the_keys)  # shuffles copied one
         newP = P()
+        # old keys point to new ones
         newP._code = dict(zip(self._code.keys(), the_keys))
         return newP
         
