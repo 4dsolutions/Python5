@@ -33,6 +33,7 @@ the docstring for more details.
  added spherical coordinate subclass
  added quadray coordinate subclass
  Mar  5, 2000: added angle function
+ June 6, 2020: spherical coordinates debug, working on blender integration
 """
 
 from math import radians, degrees, cos, sin, acos
@@ -165,7 +166,7 @@ class Vector:
         """Return (r,phi,theta) spherical coords based 
         on current (x,y,z)"""
         r = self.length()
-
+        
         if self.x == 0:
             if   self.y ==0: theta =   0.0
             elif self.y < 0: theta = -90.0
@@ -174,9 +175,11 @@ class Vector:
         else:  
             
             theta = degrees(math.atan(self.y/self.x))
-            if   self.x < 0 and self.y == 0:   theta =    180
-            elif self.x < 0 and self.y <  0:   theta =    180 - theta
-            elif self.x < 0 and self.y >  0:   theta = - (180 + theta)
+            if   self.x < 0 and self.y == 0:   theta = 180
+            # theta is positive so turn more than 180
+            elif self.x < 0 and self.y <  0:   theta = 180 + theta
+            # theta is negative so turn less than 180
+            elif self.x < 0 and self.y >  0:   theta = 180 + theta
 
         if r == 0: 
             phi=0.0
