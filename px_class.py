@@ -12,6 +12,21 @@ https://github.com/4dsolutions/Python5/blob/master/px_class.py
 
 from random import shuffle 
 from string import ascii_lowercase  # all lowercase letters
+from functools import reduce
+
+def gcd(a, b):
+    while b:
+        b, a = a % b, b
+    return a
+
+def lcm(a, b):
+    return int((a * b)/gcd(a, b))
+
+def GCD(*terms):
+    return reduce(gcd, terms)
+
+def LCM(*terms):
+    return reduce(lcm, terms)
 
 class P:
     """
@@ -173,6 +188,26 @@ class P:
                     cnt += 1
             invs[key] = cnt
         return invs
+    
+    def order(self):
+        return LCM(*map(len, self.cyclic()))
+    
+    __len__ = order
+        
+    def sgn(self):
+        """
+        Wikipedia: 
+        https://en.wikipedia.org/wiki/Parity_of_a_permutation
+        In practice, in order to determine whether a given 
+        permutation is even or odd, one writes the permutation 
+        as a product of disjoint cycles. The permutation is 
+        odd if and only if this factorization contains an 
+        odd number of even-length cycles.
+        """
+        parity = sum([len(cycle)%2==0 
+                      for cycle in self.cyclic()]) % 2
+        # sign is 1 if parity is even, else -1
+        return -1 if (parity % 2) else 1 # parity % 2 True if odd
         
 if __name__ == "__main__":
     p = P() # identity permutation
@@ -230,4 +265,17 @@ if __name__ == "__main__":
         print("Sixth Test Succeeds")
     except AssertionError:
         print("Sixth Test Fails")    
-  
+    #========== 
+    p = P().shuffle()
+    order = len(p)
+    sign = p.sgn()
+    print("Perm:", p._code)
+    print("Order:", order)
+    print("Sign:", sign)
+    try: 
+        inv_p = ~p
+        assert p.sgn() == inv_p.sgn()
+        assert P().sgn() == 1 # identity is even
+        print("Seventh Test Succeeds")
+    except AssertionError:
+        print("Seventh Test Fails")    
