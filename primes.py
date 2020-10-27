@@ -28,6 +28,7 @@ Created on Mon Sep  4 20:25:49 2017
  Sep  4, 2017  convert to Python 3.6, move to Github
 """
 import time, random, operator
+from functools import reduce
 
 _primes = [2]    # global list of primes
 
@@ -213,7 +214,7 @@ def getfactors(n):
    else: 
        for i in _primes:
            if not n%i: # if goes evenly
-               n = n/i
+               n = n//i
                return [i] + getfactors(n)
 
 def gcd(a,b):
