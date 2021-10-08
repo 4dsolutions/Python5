@@ -14,6 +14,8 @@ the docstring for more details.
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ Sep 19, 2021: remove autoconvert to floating point when initializing Vector
+ Sep 19, 2021: make xyz Vector a property of Qvector vs. a method
  Sep 06, 2019: have type(self)() instead of Qvector() return outcomes
  May 25, 2019: add area methods based on cross product
  Jun 20, 2018: make Qvectors sortable, hashable
@@ -40,17 +42,18 @@ from math import radians, degrees, cos, sin, acos
 import math
 from operator import add, sub, mul, neg
 from collections import namedtuple
+from gmpy2 import mpfr
 
 XYZ = namedtuple("xyz_vector", "x y z")
 IVM = namedtuple("ivm_vector", "a b c d")
 
-root2   = 2.0**0.5
+root2   = mpfr(2)**0.5 # 2.0**0.5
 
 class Vector:
 
     def __init__(self, arg):
         """Initialize a vector at an (x,y,z)"""
-        self.xyz = XYZ(*map(float,arg))
+        self.xyz = XYZ(*arg)
 
     def __repr__(self):
         return repr(self.xyz)
@@ -311,6 +314,7 @@ class Qvector:
     def angle(self, v1):
         return self.xyz().angle(v1.xyz())
         
+    @property
     def xyz(self):
         a,b,c,d     =  self.coords
         k           =  0.5/root2
