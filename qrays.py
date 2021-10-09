@@ -14,6 +14,7 @@ the docstring for more details.
 
 @author:  K. Urner, 4D Solutions, (M) MIT License
 
+ Oct  8, 2021: remove gmpy2 dependency
  Sep 19, 2021: remove autoconvert to floating point when initializing Vector
  Sep 19, 2021: make xyz Vector a property of Qvector vs. a method
  Sep 06, 2019: have type(self)() instead of Qvector() return outcomes
@@ -42,12 +43,11 @@ from math import radians, degrees, cos, sin, acos
 import math
 from operator import add, sub, mul, neg
 from collections import namedtuple
-from gmpy2 import mpfr
 
 XYZ = namedtuple("xyz_vector", "x y z")
 IVM = namedtuple("ivm_vector", "a b c d")
 
-root2   = mpfr(2)**0.5 # 2.0**0.5
+root2   = 2.0**0.5
 
 class Vector:
 
