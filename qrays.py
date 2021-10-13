@@ -312,7 +312,7 @@ class Qvector:
         return self.cross(v1).length() * 2/(3**0.5)
 
     def angle(self, v1):
-        return self.xyz().angle(v1.xyz())
+        return self.xyz.angle(v1.xyz)
         
     @property
     def xyz(self):
